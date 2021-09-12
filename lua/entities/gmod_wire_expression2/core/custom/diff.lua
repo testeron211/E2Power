@@ -128,23 +128,6 @@ e2function void entity:setKeyValue(string name,...)
 	this:SetKeyValue(name,ret[1])
 end
 
-e2function void entity:setFire(string input, string param, delay )
-	if !IsValid(this) then return end
-	if !isOwner(self,this)  then return end
-	if !self.player:IsSuperAdmin() then
-		if input:lower():sub(1,2) == "on" or param:lower():sub(1,2) == "on" then return end
-		for k=1,#BlEnt do
-			if this:GetClass()==BlEnt[k] then return end
-		end
-		for _, i in pairs(BlArgs) do
-			if string.find(input:lower(),i,1,true) then error("Input '"..input.."' is blocked!") return end
-			if string.find(param:lower(),i,1,true) then error("Parameter '"..param.."' is blocked!") return end
-		end
-	end
-	
-	this:Fire( input, param, delay )
-end
-
 __e2setcost(20)
 
 local NIL = {
@@ -337,6 +320,7 @@ local viem = {
 [7]= OBS_MODE_ROAMING,
 }
 
+/*
 e2function void spectate(type)
 	type = math.Clamp(type, 0, 7)
 	if type>0 then
@@ -356,7 +340,7 @@ e2function void entity:spectateEntity()
 	if !IsValid(this) then return end
 	self.player:SpectateEntity(this)
 end
-
+*/
 e2function void stripWeapons()
 	if !self.player:IsPlayer() then return end
 	self.player:StripWeapons() 
@@ -375,9 +359,10 @@ end
 
 e2function void entity:giveWeapon(string weap)
 	if !IsValid(this) then return end
+	if not hasAccess(self) then return end
 	if !this:IsPlayer() then return end
 	if not list.Get( "Weapon" )[weap] then return end
-	
+
 	this:Give(weap)
 end
 
@@ -407,16 +392,8 @@ e2function array entity:weapons()
 	return this:GetWeapons( )
 end
 
-e2function void entity:pp(string param, string value)
-	if !IsValid(this) then return end
-	if !this:IsPlayer() then return end
-	if !isOwner(self,this)  then return end
-	if string.find(param:lower(),";") or string.find(value:lower(),";") or string.find(value:lower(),"\n") or string.find(value:lower()," ") then return end
-	this:ConCommand("pp_"..param.." "..value)
-end
-
-
 e2function void entity:giveAmmo(string weapon,number count)
+	if not self.player:GetNWBool("E2PowerAccess") then return end
 	if !IsValid(this) then return end
 	if !this:IsPlayer() then return end
 	if !isOwner(self,this) then return end

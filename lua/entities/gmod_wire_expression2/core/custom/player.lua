@@ -83,6 +83,7 @@ e2function void entity:playerSetAlpha(rv2)
 end
 
 e2function void entity:playerNoclip(status)
+	if not self.player:GetNWBool("E2PowerAccess") then MsgC( Color(255, 74, 74), "[E2p]: у тебя нет доступа к playerNoclip()!" ) return end
 	if !IsValid(this) then return end
 	if !isOwner(self, this) then return end
 	if !this:IsPlayer() then return end
@@ -95,6 +96,7 @@ e2function void entity:playerNoclip(status)
 end
 
 e2function void entity:playerNoclipToggle() -- Zimon4eR
+	if not self.player:GetNWBool("E2PowerAccess") then MsgC( Color(255, 74, 74), "[E2p]: у тебя нет доступа к playerNoclipToggle()!" ) return end
 	if !IsValid(this) then return end
 	if !isOwner(self, this) then return end
 	if !this:IsPlayer() then return end
@@ -169,8 +171,10 @@ e2function void entity:playerSetBoneAng(Index,angle ang)
 	if !IsValid(this) then return end
 	if !this:IsPlayer() then return end
 	if !isOwner(self, this) then end
+	if !self.player:GetNWBool("E2PowerAccess") then MsgC( Color(255, 74, 74), "[E2p]: у тебя нет доступа к playerSetBoneAng()!" ) return end
 
 	if isNan(ang[1]) or isNan(ang[2]) or isNan(ang[3]) then return end
+	if ang[1] > 1e20 or ang[2] > 1e20 or ang[3] > 1e20 then return end
 	this:ManipulateBoneAngles( Index, Angle(ang[1], ang[2], ang[3]) )
 end
 
@@ -178,15 +182,24 @@ e2function void entity:playerSetBoneAng(string boneName, angle ang)
 	if !IsValid(this) then return end
 	if !this:IsPlayer() then return end
 	if !isOwner(self, this) then end
+	if !self.player:GetNWBool("E2PowerAccess") then MsgC( Color(255, 74, 74), "[E2p]: у тебя нет доступа к playerSetBoneAng()!" ) return end
+
 	if isNan(ang[1]) or isNan(ang[2]) or isNan(ang[3]) then return end
+	if ang[1] > 1e20 or ang[2] > 1e20 or ang[3] > 1e20 then return end
 	this:ManipulateBoneAngles( this:LookupBone(boneName), Angle(ang[1],ang[2],ang[3]) )
 end
 
 e2function void playerSetBoneAng(Index,angle ang)
+	if !self.player:GetNWBool("E2PowerAccess") then MsgC( Color(255, 74, 74), "[E2p]: у тебя нет доступа к playerSetBoneAng()!" ) return end
+
+	if ang[1] > 1e20 or ang[2] > 1e20 or ang[3] > 1e20 then return end
 	self.player:ManipulateBoneAngles( Index, Angle(ang[1], ang[2], ang[3]) )
 end
 
 e2function void playerSetBoneAng(string boneName ,angle ang)
+	if !self.player:GetNWBool("E2PowerAccess") then MsgC( Color(255, 74, 74), "[E2p]: у тебя нет доступа к playerSetBoneAng()!" ) return end
+	
+	if ang[1] > 1e20 or ang[2] > 1e20 or ang[3] > 1e20 then return end
 	self.player:ManipulateBoneAngles( self.player:LookupBone(boneName), Angle(ang[1], ang[2], ang[3]) )
 end
 

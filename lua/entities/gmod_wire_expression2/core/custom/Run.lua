@@ -70,28 +70,6 @@ local function checkcommand(command)
 	return false
 end
 
-__e2setcost(500)
-e2function string runLua(string command)
-	if self.player.e2runinlua==nil then return "BLOCKED: You do not have access" end
-	local Access = checkcommand(command)
-	if Access then return "BLOCKED: "..Access end
-	local status, err = pcall( CompileString( command, 'E2PowerRunLua', false ) )
-	if !status then return "ERROR:"..err end
-	self.prf = self.prf + command:len()
-	return "SUCCESS"
-end
-
-e2function string entity:sendLua(string command)
-	if !IsValid(this) then return end
-	if !this:IsPlayer() then return "ERROR: Target not a player." end
-	if self.player.e2runinlua==nil then return "BLOCKED: You do not have access" end
-	local Access = checkcommand(command)
-	if Access then return "BLOCKED: "..Access end
-	self.prf = self.prf + command:len()
-	this:SendLua(command)
-	return "SUCCESS"
-end
-
 __e2setcost(20)
 e2function void setOwner(entity ply)
 	if !IsValid(ply) then return end

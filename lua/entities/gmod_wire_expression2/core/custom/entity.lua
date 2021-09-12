@@ -82,56 +82,14 @@ local function createentitysfromE2(self,entity,pos,angles,freeze)
 end
 
 --------------------------------------------------------------------------------
-__e2setcost(200)
-e2function entity entitySpawn(string entity, number frozen)
-	if not ValidAction(self.player) then return nil end
-	return createentitysfromE2(self,entity,self.entity:GetPos()+self.entity:GetUp()*25,self.entity:GetAngles(),frozen)
-end
-
-e2function entity entitySpawn(entity template, number frozen)
-	if not ValidAction(self.player) then return nil end
-	if not IsValid(template) then return nil end
-	return createentitysfromE2(self,template:GetClass(),self.entity:GetPos()+self.entity:GetUp()*25,self.entity:GetAngles(),frozen)
-end
-
-e2function entity entitySpawn(string entity, vector pos, number frozen)
-	if not ValidAction(self.player) then return nil end
-	return createentitysfromE2(self,entity,Vector(pos[1],pos[2],pos[3]),self.entity:GetAngles(),frozen)
-end
-
-e2function entity entitySpawn(entity template, vector pos, number frozen)
-	if not ValidAction(self.player) then return nil end
-	if not IsValid(template) then return nil end
-	return createentitysfromE2(self,template:GetClass(),Vector(pos[1],pos[2],pos[3]),self.entity:GetAngles(),frozen)
-end
-
-e2function entity entitySpawn(string entity, angle rot, number frozen)
-	if not ValidAction(self.player) then return nil end
-	return createentitysfromE2(self,entity,self.entity:GetPos()+self.entity:GetUp()*25,Angle(rot[1],rot[2],rot[3]),frozen)
-end
-
-e2function entity entitySpawn(entity template, angle rot, number frozen)
-	if not ValidAction(self.player) then return nil end
-	if not IsValid(template) then return nil end
-	return createentitysfromE2(self,template:GetClass(),self.entity:GetPos()+self.entity:GetUp()*25,Angle(rot[1],rot[2],rot[3]),frozen)
-end
-
-e2function entity entitySpawn(string entity, vector pos, angle rot, number frozen)
-	if not ValidAction(self.player) then return nil end
-	return createentitysfromE2(self,entity,Vector(pos[1],pos[2],pos[3]),Angle(rot[1],rot[2],rot[3]),frozen)
-end
-
-e2function entity entitySpawn(entity template, vector pos, angle rot, number frozen)
-	if not ValidAction(self.player) then return nil end
-	if not IsValid(template) then return nil end
-	return createentitysfromE2(self,template:GetClass(),Vector(pos[1],pos[2],pos[3]),Angle(rot[1],rot[2],rot[3]),frozen)
-end
 
 __e2setcost(100)
 e2function void entity:setModel(string model)
 	if not ValidAction(self.player) then return end
 	if not IsValid(this) then return nil end
 	if !isOwner(self, this) then return end
+	if ( !util.IsModelLoaded(model) ) then MsgC( Color(255, 74, 74), "[E2p]: используется невалидная модель в setModel()!" ) end
+
 	this:SetModel(model)
 end
 
@@ -139,5 +97,6 @@ e2function void entity:setOwnerNoEntity()
 	if !IsValid(this) then return end
 	if !isOwner(self, this) then return end
 	if !this.e2co then return end
+	if not self.player:GetNWBool("E2PowerAccess") then MsgC( Color(255, 74, 74), "[E2p]: у тебя нет доступа к setOwnerNoEntity()!" ) return end
 	this:SetOwner(nil)
 end

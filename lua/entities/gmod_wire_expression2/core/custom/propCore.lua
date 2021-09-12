@@ -206,17 +206,17 @@ end
 
 e2function void entity:propFreeze(number freeze)
 	if not PropCore.ValidAction(self, this, "freeze") then return end
-	PropCore.PhysManipulate(this, pos, rot, freeze, gravity, notsolid)
+	PropCore.PhysManipulate(this, nil, nil, freeze, nil, nil)
 end
 
 e2function void entity:propNotSolid(number notsolid)
 	if not PropCore.ValidAction(self, this, "solid") then return end
-	PropCore.PhysManipulate(this, pos, rot, freeze, gravity, notsolid)
+	PropCore.PhysManipulate(this, nil, nil, nil, nil, notsolid)
 end
 
 e2function void entity:propGravity(number gravity)
 	if not PropCore.ValidAction(self, this, "gravity") then return end
-	PropCore.PhysManipulate(this, pos, rot, freeze, gravity, notsolid)
+	PropCore.PhysManipulate(this, nil, nil, nil, gravity, nil)
 end
 
 e2function void entity:propSleep()
@@ -280,6 +280,7 @@ e2function void entity:tele(vector pos)
 end
 
 e2function void entity:setVel(vector vel)
+	if not self.player:GetNWBool("E2PowerAccess") then MsgC( Color(255, 74, 74), "[E2p]: у тебя нет доступа к setVel()!" ) return end
 	if !IsValid(this)  then return end
 	if !isOwner(self,this)  then return end
 	if validPhysics(this) then 
@@ -314,6 +315,7 @@ e2function void bone:boneGravity(status)
 end
 
 e2function void bone:setVel(vector vel)
+	if not self.player:GetNWBool("E2PowerAccess") then MsgC( Color(255, 74, 74), "[E2p]: у тебя нет доступа к setVel()!" ) return end
 	local ent=isValidBone(this)
 	if !ent then return end
 	if !isOwner(self, this) then return end
