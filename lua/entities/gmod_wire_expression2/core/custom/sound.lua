@@ -145,14 +145,17 @@ end
 __e2setcost(100)
 
 e2function void soundURLload(string id,string url,volume, noplay, vector pos)
+	if ( pos[1] == 0 and pos[2] == 0 and pos[3] == 0 ) then MsgC( Color(255, 74, 74), "[E2p]: неверная позиция!" ) return end
 	SoundURL("load", self.entity, id, volume, pos, url, noplay)
 end
 
 e2function void soundURLload(string id,string url, volume, noplay, entity tar)
+	if ( !IsValid(tar) ) then MsgC( Color(255, 74, 74), "[E2p]: невалидная цель!" ) end
 	SoundURL("load", self.entity, id, volume, nil, url, noplay, tar)
 end
 
 e2function void entity:soundURLload(string id,string url, volume, noplay)
+	if ( !IsValid(this) ) then MsgC( Color(255, 74, 74), "[E2p]: невалидная цель!" ) end
 	SoundURL("load", self.entity, id, volume, nil, url, noplay, nil, this)
 end
 
@@ -182,14 +185,17 @@ end
 
 --
 e2function void soundURLload(id,string url,volume, noplay, vector pos)
+	if ( pos[1] == 0 and pos[2] == 0 and pos[3] == 0 ) then MsgC( Color(255, 74, 74), "[E2p]: неверная позиция!" ) return end
 	SoundURL("load", self.entity, id, volume, pos, url, noplay)
 end
 
 e2function void soundURLload(id,string url, volume, noplay, entity tar)
+	if ( !IsValid(tar) ) then MsgC( Color(255, 74, 74), "[E2p]: невалидная цель!" ) return end
 	SoundURL("load", self.entity, id, volume, nil, url, noplay, tar)
 end
 
 e2function void entity:soundURLload(id,string url, volume, noplay)
+	if ( !IsValid(this) ) then MsgC( Color(255, 74, 74), "[E2p]: невалидная цель!" ) return end
 	SoundURL("load", self.entity, id, volume, nil, url, noplay, nil, this)
 end
 

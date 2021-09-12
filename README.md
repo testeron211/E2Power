@@ -7,12 +7,8 @@ E2Power or E2P - is extension for Wiremod, which adds a lot of useful E2 command
 
 ## Changes from original fork
 
-+ For functions entity:setKeyValue() and entity:setFire() was enterd a blacklist. Superadmins ignore it.
++ For functions entity:setKeyValue() and entity:setFire() was entered a blacklist. Superadmins ignore it.
 + Fixed functions entity:removeOnDelete(entity), entity:setUndoName(string) and array:setUndoName(string). Now they can't delete players.
-+ Function addOps(number) now can't crash server.
-+ Function entity:giveWeapon(string) now doesn't spawn other entities.
-+ Fixed function entity:pp(string,string).
-+ Can no longer spawn sprite/quad/beam with texture that name starts with "pp".
 + Now password generates with 12 symbols (include letters).
 + Deleted global banlist.
 + Deleted functions e2pSetPassword(string), entity:e2pRemoveAccess() and entity:e2pGiveAccess().

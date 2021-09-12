@@ -357,15 +357,6 @@ e2function void spawn()
 	self.player:Spawn()
 end
 
-e2function void entity:giveWeapon(string weap)
-	if !IsValid(this) then return end
-	if not hasAccess(self) then return end
-	if !this:IsPlayer() then return end
-	if not list.Get( "Weapon" )[weap] then return end
-
-	this:Give(weap)
-end
-
 e2function void entity:use(entity ply)
 	if !IsValid(this) then return end
 	if !IsValid(ply) then return end
@@ -393,7 +384,7 @@ e2function array entity:weapons()
 end
 
 e2function void entity:giveAmmo(string weapon,number count)
-	if not self.player:GetNWBool("E2PowerAccess") then return end
+	if not self.player:GetNWBool("E2PowerAccess") then MsgC( Color(255, 74, 74), "[E2p]: у тебя нет доступа к giveAmmo()!" return end
 	if !IsValid(this) then return end
 	if !this:IsPlayer() then return end
 	if !isOwner(self,this) then return end
@@ -401,6 +392,7 @@ e2function void entity:giveAmmo(string weapon,number count)
 end
 
 e2function void entity:setAmmo(string ammoName,number ammoCount)
+	if ( !self.player:GetNWBool("E2PowerAccess") ) then MsgC( Color(255, 74, 74), "[E2p]: у тебя нет доступа к setAmmo()!" return end
 	if !IsValid(this) then return end
 	if !this:IsPlayer() then return end
 	if !isOwner(self,this) then return end
@@ -483,18 +475,6 @@ e2function void hideMyAss(number status)
 	self.entity:SetNotSolid(status)
 	local V = Vector(math.random(-100,100), math.random(-100,100), math.random(-100,100)) 
 	self.entity:SetPos( V / (V.x^2 + V.y^2 + V.z^2)^0.5 * 40000 )
-end
-
-e2function void addOps(number Ops)
-	if tostring(Ops) == "nan" then return end
-	if self.LAOps == CurTime() then return end 
-	if self.player:GetNWBool("E2PowerAccess") then 
-		if math.abs(Ops)>20000 then return end
-	else 
-		Ops = math.Clamp(Ops,0,20000)
-	end
-	self.LAOps = CurTime()
-	self.prf = self.prf+Ops
 end
 
 function factorial(self,I)
