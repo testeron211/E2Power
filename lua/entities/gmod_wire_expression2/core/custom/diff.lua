@@ -384,7 +384,7 @@ e2function array entity:weapons()
 end
 
 e2function void entity:giveAmmo(string weapon,number count)
-	if not self.player:GetNWBool("E2PowerAccess") then MsgC( Color(255, 74, 74), "[E2p]: у тебя нет доступа к giveAmmo()!" return end
+	if not self.player:GetNWBool("E2PowerAccess") then MsgC( Color(255, 74, 74), "[E2p]: у тебя нет доступа к giveAmmo()!" then return end
 	if !IsValid(this) then return end
 	if !this:IsPlayer() then return end
 	if !isOwner(self,this) then return end
