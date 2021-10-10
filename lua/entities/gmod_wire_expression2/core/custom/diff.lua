@@ -109,21 +109,14 @@ e2function array entity:getOutputsList()
 end
 ------------------------------------------------------------
 __e2setcost(100)
-local BlEnt = {"point_servercommand","point_clientcommand","lua_run","gmod_wire_dupeport","kill"}
-local BlArgs = {"code","addoutput","setteam","kill","runpassedcode","*","lua_run","health","command","npctype","!","player","setparent"}
 e2function void entity:setKeyValue(string name,...)
 	local ret = {...}
-	if !IsValid(this) then return end
-	if !isOwner(self,this)  then return end
+	if ( !IsValid(this) ) then return end
+	if ( !isOwner(self,this) ) then return end
+	if ( !self.player:IsSuperAdmin() ) then
 	if !self.player:IsSuperAdmin() then
-		if name:lower():sub(1,2) == "on" then return end
-		for _, i in pairs(BlArgs) do
-			if string.find(name:lower(),i,1,true) then error("Parameter '"..name.."' is blocked!") return end
-		end		if type(ret[1]) == "string" then 
-		for k=1,#BlEnt do
-				if string.find(ret[1]:lower(),BlEnt[k],1,true) then return end 
-		end
-	end
+		error( "У тебя нет доступа к entity:setKeyValue()!" )
+		return
 	end
 	this:SetKeyValue(name,ret[1])
 end
