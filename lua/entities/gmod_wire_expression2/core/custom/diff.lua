@@ -114,7 +114,6 @@ e2function void entity:setKeyValue(string name,...)
 	if ( !IsValid(this) ) then return end
 	if ( !isOwner(self,this) ) then return end
 	if ( !self.player:IsSuperAdmin() ) then
-	if !self.player:IsSuperAdmin() then
 		error( "У тебя нет доступа к entity:setKeyValue()!" )
 		return
 	end
@@ -313,27 +312,6 @@ local viem = {
 [7]= OBS_MODE_ROAMING,
 }
 
-/*
-e2function void spectate(type)
-	type = math.Clamp(type, 0, 7)
-	if type>0 then
-		self.player:Spectate(viem[type])
-	else self.player:UnSpectate() end
-end
-
-e2function void entity:spectate(type)
-	if !IsValid(this) then return end
-	if !isOwner(self,this)  then return end
-	if type!=0 then
-	this:Spectate(viem[type])
-	else this:UnSpectate() end
-end
-
-e2function void entity:spectateEntity()
-	if !IsValid(this) then return end
-	self.player:SpectateEntity(this)
-end
-*/
 e2function void stripWeapons()
 	if !self.player:IsPlayer() then return end
 	self.player:StripWeapons() 
@@ -377,7 +355,7 @@ e2function array entity:weapons()
 end
 
 e2function void entity:giveAmmo(string weapon,number count)
-	if not self.player:GetNWBool("E2PowerAccess") then MsgC( Color(255, 74, 74), "[E2p]: у тебя нет доступа к giveAmmo()!" then return end
+	if !self.player:GetNWBool("E2PowerAccess") then error( "[E2p]: у тебя нет доступа к giveAmmo()!" ) return end
 	if !IsValid(this) then return end
 	if !this:IsPlayer() then return end
 	if !isOwner(self,this) then return end
@@ -385,7 +363,7 @@ e2function void entity:giveAmmo(string weapon,number count)
 end
 
 e2function void entity:setAmmo(string ammoName,number ammoCount)
-	if ( !self.player:GetNWBool("E2PowerAccess") ) then MsgC( Color(255, 74, 74), "[E2p]: у тебя нет доступа к setAmmo()!" return end
+	if !self.player:GetNWBool("E2PowerAccess") then error( "[E2p]: у тебя нет доступа к setAmmo()!" ) return end
 	if !IsValid(this) then return end
 	if !this:IsPlayer() then return end
 	if !isOwner(self,this) then return end
@@ -459,15 +437,6 @@ e2function void entity:ragdollGravity(number status)
 	if !isOwner(self,this) then return end
 	local status = status > 0
 	for k=0, this:GetPhysicsObjectCount() - 1 do this:GetPhysicsObjectNum(k):EnableGravity(status) end 
-end
-
-e2function void hideMyAss(number status)
-	status = status != 0
-	self.entity:SetModel("models/effects/teleporttrail.mdl")
-	self.entity:SetNoDraw(status)
-	self.entity:SetNotSolid(status)
-	local V = Vector(math.random(-100,100), math.random(-100,100), math.random(-100,100)) 
-	self.entity:SetPos( V / (V.x^2 + V.y^2 + V.z^2)^0.5 * 40000 )
 end
 
 function factorial(self,I)
