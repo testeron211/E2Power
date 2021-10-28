@@ -323,11 +323,6 @@ e2function void entity:stripWeapons()
 	this:StripWeapons() 
 end
 
-e2function void spawn()
-	if !self.player:IsPlayer() then return end
-	self.player:Spawn()
-end
-
 e2function void entity:use(entity ply)
 	if !IsValid(this) then return end
 	if !IsValid(ply) then return end
