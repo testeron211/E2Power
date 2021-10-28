@@ -52,6 +52,7 @@ for _, ply in ipairs( player.GetAll() ) do
 end
 
 hook.Add("PlayerButtonUp","E2KeyPress", function(ply,key) 
+	if (!IsValid(ply.e2Keys)) then return end
 	ply.e2Keys[key] = nil
 end)
 

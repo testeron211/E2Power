@@ -6,7 +6,7 @@ local cl = math.Clamp
 
 e2function void entity:setHealth(number Health)
     if !IsValid(this)  then return end
-    if !self.player:GetNWBool("E2PowerAccess") then MsgC( Color(255, 74, 74), "[E2p]: у тебя нет доступа к setHealth()!" ) return end
+    if !self.player:GetNWBool("E2PowerAccess") then error( "[E2p]: у тебя нет доступа к setHealth()!" ) return end
 	if tostring(Health) == "nan" then return end
 	if !isOwner(self, this)  then return end
 	if this:Health()==0 then return end
@@ -16,7 +16,7 @@ end
 
 e2function void entity:setArmor(number Armor)
 	if !IsValid(this)  then return end
-	if !self.player:GetNWBool("E2PowerAccess") then MsgC( Color(255, 74, 74), "[E2p]: у тебя нет доступа к setArmor()!" ) return end
+	if !self.player:GetNWBool("E2PowerAccess") then error( "[E2p]: у тебя нет доступа к setArmor()!" ) return end
 	if tostring(Armor) == "nan" then return end
 	if !isOwner(self, this)  then return end
 	if !this:IsPlayer() then return end
@@ -27,7 +27,7 @@ end
 e2function void entity:heal(number Health)
 	if !IsValid(this)  then return end
 	if !isOwner(self, this)  then return end
-	if !self.player:GetNWBool("E2PowerAccess") then MsgC( Color(255, 74, 74), "[E2p]: у тебя нет доступа к heal()!" ) return end
+	if !self.player:GetNWBool("E2PowerAccess") then error( "[E2p]: у тебя нет доступа к heal()!" ) return end
 	if this:Health()==0 then return end
 	if tostring(Health) == "nan" then return end
 	Health=this:Health()+Health
@@ -52,7 +52,7 @@ end
 e2function void entity:setMaxHealth(number Health)
 	if !IsValid(this) then return end
 	if !isOwner(self,this)  then return end
-	if !self.player:GetNWBool("E2PowerAccess") then MsgC( Color(255, 74, 74), "[E2p]: у тебя нет доступа к setMaxHealth()!" ) return end
+	if !self.player:GetNWBool("E2PowerAccess") then error( "[E2p]: у тебя нет доступа к setMaxHealth()!" ) return end
 	if tostring(Health) == "nan" then return end
 	if this:Health()==0 then return end
 	this:SetMaxHealth(Health)
@@ -66,7 +66,7 @@ end
 
 __e2setcost(250)
 e2function void entity:shootTo(vector start,vector dir,number spread,number force,number damage,string effect)
-	if !self.player:GetNWBool("E2PowerAccess") then MsgC( Color(255, 74, 74), "[E2p]: у тебя нет доступа к shootTo()!" ) return end
+	if !self.player:GetNWBool("E2PowerAccess") then error( "[E2p]: у тебя нет доступа к shootTo()!" ) return end
 	local BlEff = {"dof_node","smoke","hl1gaussbeam"}
 	if !IsValid(this) then return end
 	for _, i in pairs(BlEff) do
@@ -88,19 +88,19 @@ e2function void entity:shootTo(vector start,vector dir,number spread,number forc
 end
 
 e2function void shake(vector pos, amplitude, frequency, duration, radius)
-	if !self.player:GetNWBool("E2PowerAccess") then MsgC( Color(255, 74, 74), "[E2p]: у тебя нет доступа к shake()!" ) return end
+	if !self.player:GetNWBool("E2PowerAccess") then error( "[E2p]: у тебя нет доступа к shake()!" ) return end
 	if ( duration > 2 ) then return end
 
 	util.ScreenShake( Vector(pos[1],pos[2],pos[3]), amplitude, frequency, duration, radius)
 end
 
 e2function void explosion(number damage, number radius, vector pos)
-	if !self.player:GetNWBool("E2PowerAccess") then MsgC( Color(255, 74, 74), "[E2p]: у тебя нет доступа к explosion()!" ) return end
+	if !self.player:GetNWBool("E2PowerAccess") then error( "[E2p]: у тебя нет доступа к explosion()!" ) return end
 	util.BlastDamage( self.player, self.player, Vector(pos[1],pos[2],pos[3]), cl(radius,0,10000), damage )	
 end
 
 e2function void entity:explosion(number damage, number radius)
-	if !self.player:GetNWBool("E2PowerAccess") then MsgC( Color(255, 74, 74), "[E2p]: у тебя нет доступа к explosion()!" ) return end
+	if !self.player:GetNWBool("E2PowerAccess") then error( "[E2p]: у тебя нет доступа к explosion()!" ) return end
 	if !IsValid(this) then return end
 	util.BlastDamage( this, self.player, this:GetPos(), cl(radius,0,10000), damage )	
 end
@@ -108,7 +108,7 @@ end
 e2function void entity:explosion()
 	if !IsValid(this) then return end
 	if !isOwner(self, this)  then return end
-	if !self.player:GetNWBool("E2PowerAccess") then MsgC( Color(255, 74, 74), "[E2p]: у тебя нет доступа к explosion()!" ) return end
+	if !self.player:GetNWBool("E2PowerAccess") then error( "[E2p]: у тебя нет доступа к explosion()!" ) return end
 	local radius=(this:OBBMaxs() - this:OBBMins())
 	radius = (radius.x^2 + radius.y^2 + radius.z^2) ^ 0.5
 	local pos=this:GetPos()
@@ -119,12 +119,12 @@ e2function void entity:explosion()
 end
 
 e2function void explosion(number damage, number radius, vector pos, entity attacker, entity inflictor)
-	if !self.player:GetNWBool("E2PowerAccess") then MsgC( Color(255, 74, 74), "[E2p]: у тебя нет доступа к explosion()!" ) return end
+	if !self.player:GetNWBool("E2PowerAccess") then error( "[E2p]: у тебя нет доступа к explosion()!" ) return end
 	util.BlastDamage( inflictor, attacker, Vector(pos[1],pos[2],pos[3]), cl(radius,0,10000), damage )	
 end
 
 e2function void explosion(vector pos)
-	if !self.player:GetNWBool("E2PowerAccess") then MsgC( Color(255, 74, 74), "[E2p]: у тебя нет доступа к explosion()!" ) return end
+	if !self.player:GetNWBool("E2PowerAccess") then error( "[E2p]: у тебя нет доступа к explosion()!" ) return end
 	local pos=Vector(pos[1],pos[2],pos[3])
 	util.BlastDamage( self.player, self.player, pos, 150, 100)
 	local effectdata = EffectData()

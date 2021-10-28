@@ -105,18 +105,22 @@ end
 __e2setcost(20)
 
 e2function void particle(Duration, StartSize, EndSize, string Mat, vector RGB, vector Position, vector Velocity, Pitch, RollDelta, StartAlpha, EndAlpha)
+    if (Duration > 3) then error( "[E2p]: Duration не может быть больше 3!" ) return end
     SpawnParticle(self, Duration, StartSize, EndSize, Mat, RGB, Position, Velocity, Pitch, RollDelta, StartAlpha, EndAlpha)
 end
 
 e2function void particle(Duration, StartSize, EndSize, string Mat, vector RGB, vector Position, vector Velocity, Pitch, RollDelta)
+    if (Duration > 3) then error( "[E2p]: Duration не может быть больше 3!" ) return end
     SpawnParticle(self, Duration, StartSize, EndSize, Mat, RGB, Position, Velocity, Pitch, RollDelta)
 end
 
 e2function void particle(Duration, StartSize, EndSize, string Mat, vector RGB, vector Position, vector Velocity, Pitch)
+    if (Duration > 3) then error( "[E2p]: Duration не может быть больше 3!" ) return end
     SpawnParticle(self, Duration, StartSize, EndSize, Mat, RGB, Position, Velocity, Pitch)
 end
 
 e2function void particle(Duration, StartSize, EndSize, string Mat, vector RGB, vector Position, vector Velocity)
+    if (Duration > 3) then error( "[E2p]: Duration не может быть больше 3!" ) return end
     SpawnParticle(self, Duration, StartSize, EndSize, Mat, RGB, Position, Velocity)
 end
 
