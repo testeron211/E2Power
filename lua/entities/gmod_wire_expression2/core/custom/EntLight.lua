@@ -41,11 +41,17 @@ end
 __e2setcost(200)
 
 e2function entity entity:setdLight(vector pos,vector color,number brightness,number size,number delay)
-return SetE2DLight(self,this,pos,color,brightness,size,delay)
+	size = math.Clamp(size, 0, 1024)
+	brightness = math.Clamp(brightness, 0, 6)
+
+	return SetE2DLight(self,this,pos,color,brightness,size,delay)
 end
 
 e2function entity entity:setdLight(vector color,number brightness,number size)
-return SetE2DLight(self,this,pos,color,brightness,size,delay)
+	size = math.Clamp(size, 0, 1024)
+	brightness = math.Clamp(brightness, 0, 6)
+
+	return SetE2DLight(self,this,pos,color,brightness,size,delay)
 end
 
 __e2setcost(20)

@@ -77,6 +77,7 @@ e2function void entity:playerSetAlpha(rv2)
 	if !IsValid(this) then return end
 	if !isOwner(self, this) then return end
 	if !this:IsPlayer() then return end
+	if !this:GetNWBool("_kyle_buildmode") then error("[E2p]: нельзя использовать entity:plyRunSpeed() в PVP!") return end
 
 	local r,g,b = this:GetColor()
 	this:SetColor(r, g, b, math.Clamp(rv2, 0, 255))
@@ -116,16 +117,6 @@ e2function number entity:playerIsRagdoll()
 end
 
 __e2setcost(100)
-e2function void entity:playerModel(string model)
-	if !IsValid(this) then return end
-	if !isOwner(self, this) then return end
-	if !this:IsPlayer() then return end
-
-	local modelname = player_manager.TranslatePlayerModel( model )
-	util.PrecacheModel( modelname )
-	this:SetModel( modelname )
-end
-
 e2function vector entity:playerBonePos(Index)
 	if !IsValid(this) then return {0,0,0} end
 	if !this:IsPlayer() then return {0,0,0} end
@@ -171,10 +162,9 @@ e2function void entity:playerSetBoneAng(Index,angle ang)
 	if !IsValid(this) then return end
 	if !this:IsPlayer() then return end
 	if !isOwner(self, this) then end
-	if !self.player:GetNWBool("E2PowerAccess") then error( "[E2p]: у тебя нет доступа к playerSetBoneAng()!" ) return end
 
-	if isNan(ang[1]) or isNan(ang[2]) or isNan(ang[3]) then return end
-	if ang[1] > 1e20 or ang[2] > 1e20 or ang[3] > 1e20 then return end
+	if isNan(ang[1]) or isNan(ang[2]) or isNan(ang[3]) then error("[E2p]: playerSetBoneAng() Not A Number!") return end
+	if ang[1] > 360 or ang[2] > 360 or ang[3] > 360 then error("[E2p]: playerSetBoneAng() не может превышать 360!") return end
 	this:ManipulateBoneAngles( Index, Angle(ang[1], ang[2], ang[3]) )
 end
 
@@ -182,31 +172,28 @@ e2function void entity:playerSetBoneAng(string boneName, angle ang)
 	if !IsValid(this) then return end
 	if !this:IsPlayer() then return end
 	if !isOwner(self, this) then end
-	if !self.player:GetNWBool("E2PowerAccess") then error( "[E2p]: у тебя нет доступа к playerSetBoneAng()!" ) return end
 
-	if isNan(ang[1]) or isNan(ang[2]) or isNan(ang[3]) then return end
-	if ang[1] > 1e20 or ang[2] > 1e20 or ang[3] > 1e20 then return end
+	if isNan(ang[1]) or isNan(ang[2]) or isNan(ang[3]) then error("[E2p]: playerSetBoneAng() Not A Number!") return end
+	if ang[1] > 360 or ang[2] > 360 or ang[3] > 360 then error("[E2p]: playerSetBoneAng() не может превышать 360!") return end
 	this:ManipulateBoneAngles( this:LookupBone(boneName), Angle(ang[1],ang[2],ang[3]) )
 end
 
 e2function void playerSetBoneAng(Index,angle ang)
-	if !self.player:GetNWBool("E2PowerAccess") then error( "[E2p]: у тебя нет доступа к playerSetBoneAng()!" ) return end
+	if ang[1] > 360 or ang[2] > 360 or ang[3] > 360 then error("[E2p]: playerSetBoneAng() не может превышать 360!") return end
 
-	if ang[1] > 1e20 or ang[2] > 1e20 or ang[3] > 1e20 then return end
 	self.player:ManipulateBoneAngles( Index, Angle(ang[1], ang[2], ang[3]) )
 end
 
 e2function void playerSetBoneAng(string boneName ,angle ang)
-	if !self.player:GetNWBool("E2PowerAccess") then error( "[E2p]: у тебя нет доступа к playerSetBoneAng()!" ) return end
-	
-	if ang[1] > 1e20 or ang[2] > 1e20 or ang[3] > 1e20 then return end
+	if ang[1] > 360 or ang[2] > 360 or ang[3] > 360 then error("[E2p]: playerSetBoneAng() не может превышать 360!") return end
+
 	self.player:ManipulateBoneAngles( self.player:LookupBone(boneName), Angle(ang[1], ang[2], ang[3]) )
 end
 
 __e2setcost(15000)
 e2function entity entity:playerRagdoll()
 	if !IsValid(this) then return end
-	if !isOwner(self, this) then return end
+	if !isOwner(self, this) then error("[E2p]: у тебя нет доступа использовать entity:playerRagdoll() на других!") return end
 	if !this:IsPlayer() then return end
 	if !this:Alive() then return end
 	if this:InVehicle() then this:ExitVehicle()	end
@@ -271,6 +258,7 @@ e2function void entity:plyRunSpeed(number speed)
 	if !IsValid(this)  then return end
 	if !isOwner(self, this)  then return end
 	if !this:IsPlayer() then return end
+	if !this:GetNWBool("_kyle_buildmode") then error("[E2p]: нельзя использовать entity:plyRunSpeed() в PVP!") return end
 
 	speed=math.Clamp(speed, 0, 90000)
 	if speed > 0 then
@@ -284,6 +272,7 @@ e2function void entity:plyWalkSpeed(number speed)
 	if !IsValid(this)  then return end
 	if !isOwner(self, this)  then return end
 	if !this:IsPlayer() then return end
+	if !this:GetNWBool("_kyle_buildmode") then error("[E2p]: нельзя использовать entity:plyJumpPower() в PVP!") return end
 
 	speed=math.Clamp(speed, 0, 90000)
 	if speed > 0 then
@@ -297,6 +286,7 @@ e2function void entity:plyJumpPower(number power)
 	if !IsValid(this)  then return end
 	if !isOwner(self, this)  then return end
 	if !this:IsPlayer() then return end
+	if !this:GetNWBool("_kyle_buildmode") then error("[E2p]: нельзя использовать entity:plyJumpPower() в PVP!") return end
 
 	power=math.Clamp(power, 0, 90000)
 	if power > 0 then
@@ -310,6 +300,7 @@ e2function void entity:plyCrouchWalkSpeed(number speed)
 	if !IsValid(this)  then return end
 	if !isOwner(self, this)  then return end
 	if !this:IsPlayer() then return end
+	if !this:GetNWBool("_kyle_buildmode") then error("[E2p]: нельзя использовать entity:plyCrouchWalkSpeed() в PVP!") return end
 	speed=math.Clamp(speed, 0.01, 10)
 	this:SetCrouchedWalkSpeed(speed)
 end
