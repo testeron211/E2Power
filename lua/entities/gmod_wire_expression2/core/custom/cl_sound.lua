@@ -3,18 +3,20 @@
 AddCSLuaFile()
 CreateClientConVar( "wire_expression2_soundurl_enable", "1", true, false )  
 CreateClientConVar( "wire_expression2_soundurl_maxPerSecond", "3", true, false )  
-CreateClientConVar( "wire_expression2_soundurl_maxSoundCount", "5", true, false )  
+CreateClientConVar( "wire_expression2_soundurl_maxSoundCount", "3", true, false )  
 CreateClientConVar( "wire_expression2_soundurl_block", "SteamID,", false, false ) 
 local tempSound = 0
 local E2SoundParToEnt=nil
 local rn = math.Round ts = tostring
 
 local function ClearSoundURL(ent)
-	table.foreach(ent.E2PAudStreams, function(k) 
-		if E2SoundParToEnt!=nil then E2SoundParToEnt[ent.E2PAudStreams[k]]=nil end
-		ent.E2PAudStreams[k]:Stop()
-		ent.E2PAudStreams[k] = nil
-	end) 
+	if ent.E2PAudStreams then 
+		table.foreach(ent.E2PAudStreams, function(k) 
+			if E2SoundParToEnt!=nil then E2SoundParToEnt[ent.E2PAudStreams[k]]=nil end
+			ent.E2PAudStreams[k]:Stop()
+			ent.E2PAudStreams[k] = nil
+		end) 
+	end
 	ent.E2PAudStreams = {}
 end 
 
