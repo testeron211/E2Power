@@ -288,13 +288,6 @@ e2function void entity:setAng(angle rot)
 	end
 end
 
-e2function void entity:tele(vector pos)
-	if !IsValid(this)  then return end
-	if !isOwner(self,this)  then return end
-	if !IsValidPos(pos) then return end
-	this:SetPos(Vector(pos[1],pos[2],pos[3]))
-end
-
 e2function void entity:setVel(vector vel)
 	if not self.player:GetNWBool("E2PowerAccess") then error( "[E2p]: у тебя нет доступа к setVel()!" ) return end
 	if !IsValid(this)  then return end

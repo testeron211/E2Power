@@ -19,8 +19,8 @@ function SetE2DLight(self,this,pos,color,brightness,size,delay)
 	if pos!=nil then dynlight:SetPos( Vector(pos[1],pos[2],pos[3]) ) else dynlight:SetPos(this:GetPos()) end
 	dynlight:SetKeyValue( "_light", Clamp(color[1], 0, 255) .. " " .. Clamp(color[2], 0, 255) .. " " .. Clamp(color[3], 0, 255) .. " " .. 255 )
 	if delay!=nil then dynlight:SetKeyValue( "style", delay ) end
-	dynlight:SetKeyValue( "distance", Clamp(size, 0, 5000) )
-	dynlight:SetKeyValue( "brightness", Clamp(brightness, 0, 15) )
+	dynlight:SetKeyValue( "distance", Clamp(size, 0, 1024) )
+	dynlight:SetKeyValue( "brightness", Clamp(brightness, 0, 6) )
 	if this!=nil then dynlight:SetParent( this ) end
 	dynlight:SetOwner( self.player )
 	
@@ -41,16 +41,10 @@ end
 __e2setcost(200)
 
 e2function entity entity:setdLight(vector pos,vector color,number brightness,number size,number delay)
-	size = math.Clamp(size, 0, 1024)
-	brightness = math.Clamp(brightness, 0, 6)
-
 	return SetE2DLight(self,this,pos,color,brightness,size,delay)
 end
 
 e2function entity entity:setdLight(vector color,number brightness,number size)
-	size = math.Clamp(size, 0, 1024)
-	brightness = math.Clamp(brightness, 0, 6)
-
 	return SetE2DLight(self,this,pos,color,brightness,size,delay)
 end
 

@@ -1,13 +1,13 @@
 --made by [G-moder]FertNoN
 ---------------------------------------------EFFECT SPAWN
 
-local sbox_E2_maxEffectPerSecond = CreateConVar( "sbox_e2_maxEffectPerSecond", "100", FCVAR_ARCHIVE )
+local sbox_E2_maxEffectPerSecond = CreateConVar( "sbox_e2_maxEffectPerSecond", "10", FCVAR_ARCHIVE )
 local EffectInSecond=0
 local bannedEffect = {["dof_node"]=true,["smoke"]=true,["hl1gaussbeam"]=true}
 
 function E2_Spawn_Effect(self, effect, this, pos, start, normal, rot, size)
 	if bannedEffect[effect:lower()] then return end
-	if EffectInSecond >= sbox_E2_maxEffectPerSecond:GetInt()/10 then return end
+	if EffectInSecond >= sbox_E2_maxEffectPerSecond:GetInt()/10 then error('[E2p]: превышенна квота sbox_e2_maxEffectPerSecond!') return end
 	local effectdata = EffectData()
 	
 	if pos!=nil then effectdata:SetOrigin( Vector(pos[1],pos[2],pos[3]) ) end

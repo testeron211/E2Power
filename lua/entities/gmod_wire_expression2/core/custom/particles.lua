@@ -4,8 +4,9 @@ local Particles             = {}
 local rad2deg               = 180 / math.pi
 local asin                  = math.asin
 local atan2                 = math.atan2
+local math.Clamp            = math.Clamp
 local AlwaysRender          = 1
-local MaxParticlesPerSecond = CreateConVar( "sbox_e2_maxParticlesPerSecond", "100", FCVAR_ARCHIVE )
+local MaxParticlesPerSecond = CreateConVar( "sbox_e2_maxParticlesPerSecond", "10", FCVAR_ARCHIVE )
 
 local function bearing(pos, plyer)
     pos = plyer:WorldToLocal(Vector(pos[1],pos[2],pos[3]))
@@ -94,6 +95,7 @@ local function SpawnParticle(self, Duration, StartSize, EndSize, Mat, RGB, Posit
 				if RollDelta==nil then RollDelta=0 end
 				if StartAlpha==nil then StartAlpha=255 end
 				if EndAlpha==nil then EndAlpha=StartAlpha end
+                Duration = math.Clamp(Duration, 0, 5)
                 message(Duration, StartSize, EndSize, RGB, Position, Velocity, Mat, self.entity, Pitch, RollDelta, StartAlpha-128, EndAlpha-128)
                 ParticlesThisSecond[PlyID] = ParticlesThisSecond[PlyID] + 1
                 if !timer.Exists(timerName) then
@@ -105,22 +107,18 @@ end
 __e2setcost(20)
 
 e2function void particle(Duration, StartSize, EndSize, string Mat, vector RGB, vector Position, vector Velocity, Pitch, RollDelta, StartAlpha, EndAlpha)
-    if (Duration > 3) then error( "[E2p]: Duration не может быть больше 3!" ) return end
     SpawnParticle(self, Duration, StartSize, EndSize, Mat, RGB, Position, Velocity, Pitch, RollDelta, StartAlpha, EndAlpha)
 end
 
 e2function void particle(Duration, StartSize, EndSize, string Mat, vector RGB, vector Position, vector Velocity, Pitch, RollDelta)
-    if (Duration > 3) then error( "[E2p]: Duration не может быть больше 3!" ) return end
     SpawnParticle(self, Duration, StartSize, EndSize, Mat, RGB, Position, Velocity, Pitch, RollDelta)
 end
 
 e2function void particle(Duration, StartSize, EndSize, string Mat, vector RGB, vector Position, vector Velocity, Pitch)
-    if (Duration > 3) then error( "[E2p]: Duration не может быть больше 3!" ) return end
     SpawnParticle(self, Duration, StartSize, EndSize, Mat, RGB, Position, Velocity, Pitch)
 end
 
 e2function void particle(Duration, StartSize, EndSize, string Mat, vector RGB, vector Position, vector Velocity)
-    if (Duration > 3) then error( "[E2p]: Duration не может быть больше 3!" ) return end
     SpawnParticle(self, Duration, StartSize, EndSize, Mat, RGB, Position, Velocity)
 end
 
