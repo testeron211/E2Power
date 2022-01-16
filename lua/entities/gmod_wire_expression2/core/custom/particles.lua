@@ -4,7 +4,7 @@ local Particles             = {}
 local rad2deg               = 180 / math.pi
 local asin                  = math.asin
 local atan2                 = math.atan2
-local math.Clamp            = math.Clamp
+local clamp            = math.Clamp
 local AlwaysRender          = 1
 local MaxParticlesPerSecond = CreateConVar( "sbox_e2_maxParticlesPerSecond", "10", FCVAR_ARCHIVE )
 
@@ -95,7 +95,7 @@ local function SpawnParticle(self, Duration, StartSize, EndSize, Mat, RGB, Posit
 				if RollDelta==nil then RollDelta=0 end
 				if StartAlpha==nil then StartAlpha=255 end
 				if EndAlpha==nil then EndAlpha=StartAlpha end
-                Duration = math.Clamp(Duration, 0, 5)
+                Duration = clamp(Duration, 0, 5)
                 message(Duration, StartSize, EndSize, RGB, Position, Velocity, Mat, self.entity, Pitch, RollDelta, StartAlpha-128, EndAlpha-128)
                 ParticlesThisSecond[PlyID] = ParticlesThisSecond[PlyID] + 1
                 if !timer.Exists(timerName) then
