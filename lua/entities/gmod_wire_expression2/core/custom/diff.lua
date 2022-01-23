@@ -323,18 +323,6 @@ e2function void entity:stripWeapons()
 	this:StripWeapons() 
 end
 
-e2function void entity:use(entity ply)
-	if !IsValid(this) then return end
-	if !IsValid(ply) then return end
-	if !ply:IsPlayer() then return end
-	if !this:IsVehicle() then this:Use(ply) end
-end
-
-e2function void entity:use()
-	if !IsValid(this) then return end
-	if !this:IsVehicle() then this:Use(self.player) end
-end
-
 e2function void crosshair(status)
 	if status==1 then
 		self.player:CrosshairEnable()
