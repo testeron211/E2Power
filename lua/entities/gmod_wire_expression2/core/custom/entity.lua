@@ -87,6 +87,7 @@ __e2setcost(100)
 e2function void entity:setModel(string model)
 	if not ValidAction(self.player) then return end
 	if not IsValid(this) then return nil end
+	if isOwner(self, this) then return end
 	if this:IsPlayer() and !self.player:IsSuperAdmin() then error("[E2p]: нельзя использовать entity:setModel() на игроков!") return end
 	if ( !util.IsValidModel(model) ) then error( "[E2p]: используется невалидная модель в setModel()!" ) return end
 
