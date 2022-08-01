@@ -108,18 +108,6 @@ e2function array entity:getOutputsList()
 	return ret
 end
 ------------------------------------------------------------
-__e2setcost(100)
-e2function void entity:setKeyValue(string name,...)
-	local ret = {...}
-	if ( !IsValid(this) ) then return end
-	if ( !isOwner(self,this) ) then return end
-	if ( !self.player:IsSuperAdmin() ) then
-		error( "У тебя нет доступа к entity:setKeyValue()!" )
-		return
-	end
-	this:SetKeyValue(name,ret[1])
-end
-
 __e2setcost(20)
 
 local NIL = {
