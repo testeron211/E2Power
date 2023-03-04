@@ -2,6 +2,9 @@
 [![](https://img.shields.io/github/release/VelaEurope/e2power.svg)]()
 [![](https://img.shields.io/github/license/VelaEurope/e2power.svg)]()
 
+Due to lack of time and active devs compatibility with latest versions of WireMod is not guaranteed.\
+Use [this version](https://github.com/wiremod/wire/tree/02e15b5ed8fc8f21b7809400d4437321425a06f6) instead.
+
 # E2Power
 E2Power or E2P - is extension for Wiremod, which adds a lot of useful E2 commands.
 
@@ -32,7 +35,7 @@ E2Power or E2P - is extension for Wiremod, which adds a lot of useful E2 command
 **[G-moder]FertNoN**
 
 + [Steam](https://steamcommunity.com/id/FertNoN)
-+ [Группа Steam](https://steamcommunity.com/groups/E2Power)
++ [Steam Group](https://steamcommunity.com/groups/E2Power)
 
 **Tengz**
 
