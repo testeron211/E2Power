@@ -260,7 +260,7 @@ e2function void entity:setPos(vector pos)
 	if blacklistedClasses[ this:GetClass() ] then error("[E2p]: недопустимый класс энтити entity:setPos()!") return end
 	if !isOwner(self, this) then return end
 	if this:IsPlayer() then
-		if !this:GetNWBool("_kyle_buildmode") and !self.player:IsAdmin() then 
+		if !this:InBuildMode() and !self.player:IsAdmin() then 
 			error("[E2p]: нельзя использовать entity:setPos() в PVP!") 
 			return 
 		end

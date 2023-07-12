@@ -77,7 +77,7 @@ e2function void entity:playerSetAlpha(rv2)
 	if !IsValid(this) then return end
 	if !isOwner(self, this) then return end
 	if !this:IsPlayer() then return end
-	if !this:GetNWBool("_kyle_buildmode") then error("[E2p]: нельзя использовать entity:plyRunSpeed() в PVP!") return end
+	if !this:InBuildMode() then error("[E2p]: нельзя использовать entity:plyRunSpeed() в PVP!") return end
 
 	local r,g,b = this:GetColor()
 	this:SetColor(r, g, b, math.Clamp(rv2, 0, 255))
@@ -258,7 +258,7 @@ e2function void entity:plyRunSpeed(number speed)
 	if !IsValid(this)  then return end
 	if !isOwner(self, this)  then return end
 	if !this:IsPlayer() then return end
-	if !this:GetNWBool("_kyle_buildmode") then error("[E2p]: нельзя использовать entity:plyRunSpeed() в PVP!") return end
+	if !this:InBuildMode() then error("[E2p]: нельзя использовать entity:plyRunSpeed() в PVP!") return end
 
 	speed=math.Clamp(speed, 0, 90000)
 	if speed > 0 then
@@ -272,7 +272,7 @@ e2function void entity:plyWalkSpeed(number speed)
 	if !IsValid(this)  then return end
 	if !isOwner(self, this)  then return end
 	if !this:IsPlayer() then return end
-	if !this:GetNWBool("_kyle_buildmode") then error("[E2p]: нельзя использовать entity:plyJumpPower() в PVP!") return end
+	if !this:InBuildMode() then error("[E2p]: нельзя использовать entity:plyJumpPower() в PVP!") return end
 
 	speed=math.Clamp(speed, 0, 90000)
 	if speed > 0 then
@@ -286,7 +286,7 @@ e2function void entity:plyJumpPower(number power)
 	if !IsValid(this)  then return end
 	if !isOwner(self, this)  then return end
 	if !this:IsPlayer() then return end
-	if !this:GetNWBool("_kyle_buildmode") then error("[E2p]: нельзя использовать entity:plyJumpPower() в PVP!") return end
+	if !this:InBuildMode() then error("[E2p]: нельзя использовать entity:plyJumpPower() в PVP!") return end
 
 	power=math.Clamp(power, 0, 90000)
 	if power > 0 then
@@ -300,7 +300,7 @@ e2function void entity:plyCrouchWalkSpeed(number speed)
 	if !IsValid(this)  then return end
 	if !isOwner(self, this)  then return end
 	if !this:IsPlayer() then return end
-	if !this:GetNWBool("_kyle_buildmode") then error("[E2p]: нельзя использовать entity:plyCrouchWalkSpeed() в PVP!") return end
+	if !this:InBuildMode() then error("[E2p]: нельзя использовать entity:plyCrouchWalkSpeed() в PVP!") return end
 	speed=math.Clamp(speed, 0.01, 10)
 	this:SetCrouchedWalkSpeed(speed)
 end
